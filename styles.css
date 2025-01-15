@@ -58,29 +58,32 @@
 
 .inline-status-dropdown {
     position: relative;
-    display: inline-flex;
-    padding: 4px 8px;
+    display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     color: #FFF;
     border-radius: 4px;
 }
 
 .delete-indicator {
     display: flex;
+    width: fit-content;
+    position: relative;
     align-items: center;
     gap: 8px;
+    z-index: 2;
+    box-sizing: border-box;
 }
 
 .status-text {
     color: var(--foreground-form_control-text_input-populated, #2A2A2E);
 
-    /* semantic/body/md/regular */
+    /* semantic/body/sm/regular */
     font-family: var(--theme-font_family-body, "Noto Sans");
-    font-size: var(--font_size-sm, 14px);
+    font-size: var(--font_size-xs, 12px);
     font-style: normal;
     font-weight: var(--font_weight-regular, 400);
-    line-height: var(--line_height-sm, 20px); /* 142.857% */
+    line-height: var(--line_height-xs, 18px); /* 150% */
 }
 
 .dropdown-icon {
@@ -91,10 +94,14 @@
     align-items: center;
 }
 
+.indicator-buffer {
+    width: 8px;
+}
+
 .menu-dropdown {
     position: absolute;
-    top: 32px;
-    left: 0px;
+    top: 28px;
+    left: -10px;
     display: flex;
     width: 112px;
     padding: 8px 0px;
@@ -135,23 +142,46 @@
     line-height: var(--line_height-xs, 18px); /* 150% */
 }
 
+.activity-container {
+    position: absolute;
+    left: -8px;
+    display: flex;
+    width: 100%;
+    height: 26px;
+    padding-left: 8px;
+    padding-right: 8px;
+    align-items: center;
+    gap: 12px;
+    background: transparent;
+    border-radius: 4px;
+    box-sizing: border-box;
+    z-index: -1;
+}
+
 /* documentation table related styles */
 
 table {
     font-family: Noto Sans , sans-serif;
+    color: var(--foreground-form_control-text_input-populated, #2A2A2E);
     font-size: 12px;
     border-collapse: collapse;
     width: 100%;
 }
   
-  td, th {
+td, th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 0px var(--container-sm-padding, 12px);
     height: var(--data_table_items-header-default-height, 40px);
 }
+
+tr:hover {
+    background: var(--background-interactive-subtle-hover, #D5DEF7);
+}
+
+
   
-  tr:nth-child(even) {
+tr:nth-child(even) {
     background-color: #EBEDF5;
 }
 

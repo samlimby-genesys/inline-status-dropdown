@@ -1,56 +1,54 @@
 const standaloneDropdown = document.getElementById("standalone-dropdown");
-const inlineDropdown = document.getElementById("inline-status-dropdown");
+const inlineDropdown = document.getElementById("inline-status-dropdown")
 
-let statusDropdownActive = false;
+const standaloneActivityBlock = document.getElementById("standalone-block");
+const inlineActivityBlock = document.getElementById("inline-block");
 
-standaloneDropdown.addEventListener("mouseover", statusHover);
-standaloneDropdown.addEventListener("mouseleave", statusLeave);
-standaloneDropdown.addEventListener("click", statusActive);
-
-inlineDropdown.addEventListener("mouseover", statusHover);
-inlineDropdown.addEventListener("mouseleave", statusLeave);
-inlineDropdown.addEventListener("click", statusActive);
+const inlineDropdownIcon = document.getElementById("inline-chevron");
+const standaloneDropdownIcon = document.getElementById("standalone-chevron");
 
 
+let inlineStatusDropdownActive = false;
+let standaloneStatusDropdownActive = false;
 
-// logic functions
+standaloneDropdown.addEventListener("mouseover", standaloneStatusHover);
+standaloneDropdown.addEventListener("mouseleave", standaloneStatusLeave);
+standaloneDropdown.addEventListener("click", standaloneStatusActive);
 
-function statusHover(event) {
+inlineDropdown.addEventListener("mouseover", inlineStatusHover);
+inlineDropdown.addEventListener("mouseleave", inlineStatusLeave);
+inlineDropdown.addEventListener("click", inlineStatusActive);
 
-    if (event.target.src === "icons/default-chevron.png" || "icons/active-chevron.png") {
-        event.target.src = "icons/hover-chevron.png";
-    }
+// inline logic functions
 
-    console.log(event.target);
+function inlineStatusHover() {
 
-    event.target.style.cursor = "pointer";
-    event.target.style.background = "#D5DEF7"
+    console.log("inline hovering");
+
+    inlineActivityBlock.style.background = "#ADBFF0";
+    inlineDropdown.style.cursor = "pointer";
+    inlineDropdownIcon.src = "icons/hover-chevron.png"
 
 };
 
-function statusLeave(event) {
+function inlineStatusLeave() {
 
-    if (event.target.src === "icons/hover-chevron.png" || "icons/active-chevron.png") {
-        event.target.src = "icons/default-chevron.png";
-    }
+    inlineActivityBlock.style.background = "transparent";
+    inlineDropdownIcon.src = "icons/default-chevron.png"
 
-    event.target.style.background = "#fff"
 };
 
-function statusActive(event) {
+function inlineStatusActive() {
 
-    if (!statusDropdownActive) {
+    if (!inlineStatusDropdownActive) {
 
-        if (event.target.src === "icons/hover-chevron.png" || "icons/default-chevron.png") {
-            event.target.src = "icons/active-chevron.png";
-        }
+        inlineDropdownIcon.src = "icons/active-chevron.png"
 
 
-        event.target.removeEventListener("mouseover", statusHover);
-        event.target.removeEventListener("mouseleave", statusLeave);
-    
-        event.target.style.background = "#ADBFF0";
-        statusDropdownActive = true;
+        inlineDropdown.removeEventListener("mouseover", inlineStatusHover);
+        inlineDropdown.removeEventListener("mouseleave", inlineStatusLeave);
+
+        inlineStatusDropdownActive = true;
 
         console.log(standaloneDropdown);
 
@@ -73,19 +71,88 @@ function statusActive(event) {
         
         `;
 
-        event.target.appendChild(newDropdown);
+        inlineDropdown.appendChild(newDropdown);
 
     } else {
 
-        const menuDropdown = event.target.querySelector(".menu-dropdown");
+        const menuDropdown = inlineDropdown.querySelector(".menu-dropdown");
         console.log(menuDropdown);
 
-        statusDropdownActive = false;
+        inlineStatusDropdownActive = false;
 
         menuDropdown.remove();
         
-        event.target.addEventListener("mouseover", statusHover);
-        event.target.addEventListener("mouseleave", statusLeave);
+        inlineDropdown.addEventListener("mouseover", inlineStatusHover);
+        inlineDropdown.addEventListener("mouseleave", inlineStatusLeave);
+
+    }
+
+
+}
+
+
+// standalone logic
+
+function standaloneStatusHover() {
+
+    console.log("inline hovering");
+
+    standaloneActivityBlock.style.background = "#ADBFF0";
+    standaloneDropdown.style.cursor = "pointer";
+    standaloneDropdownIcon.src = "icons/hover-chevron.png"
+
+};
+
+function standaloneStatusLeave() {
+
+    standaloneActivityBlock.style.background = "transparent";
+    standaloneDropdownIcon.src = "icons/default-chevron.png"
+
+};
+
+function standaloneStatusActive() {
+
+    if (!standaloneStatusDropdownActive) {
+
+        standaloneDropdownIcon.src = "icons/active-chevron.png"
+
+
+        standaloneDropdown.removeEventListener("mouseover", standaloneStatusHover);
+        standaloneDropdown.removeEventListener("mouseleave", standaloneStatusLeave);
+
+        standaloneStatusDropdownActive = true;
+
+        let newDropdown = document.createElement("div");
+        newDropdown.classList.add("menu-dropdown");
+
+        newDropdown.innerHTML = `
+            <div class="menu-option">
+                <img src="status-glyph/active.png">
+                <p class="menu-text">Active</p>
+            </div>
+            <div class="menu-option">
+                <img src="status-glyph/warning.png">
+                <p class="menu-text">Inactive</p>
+            </div>
+            <div class="menu-option">
+                <img src="status-glyph/information.png">
+                <p class="menu-text">Information</p>
+            </div>
+        
+        `;
+
+        standaloneDropdown.appendChild(newDropdown);
+
+    } else {
+
+        const menuDropdown = standaloneDropdown.querySelector(".menu-dropdown");
+
+        standaloneStatusDropdownActive = false;
+
+        menuDropdown.remove();
+        
+        standaloneDropdown.addEventListener("mouseover", standaloneStatusHover);
+        standaloneDropdown.addEventListener("mouseleave", standaloneStatusLeave);
 
     }
 
